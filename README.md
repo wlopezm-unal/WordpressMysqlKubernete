@@ -9,4 +9,4 @@ Para poder ejecutar el archivo:
 5. Verifica si se crearon los deployment --> kubeckt get deployment
 6. Ejecutar los servicios creados --> minikube service --all 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-![image](https://github.com/wlopezm-unal/WordpressMysqlKubernete/assets/68913739/e405d013-f260-41bc-ba6a-15c8c5409a6c)
+![image](https://github.com/wlopezm-unal/WordpressMysqlKubernete/assets/68913739/167b40a3-353b-4b51-b301-892bc6acb851)

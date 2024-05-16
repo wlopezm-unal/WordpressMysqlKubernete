@@ -1,0 +1,62 @@
+apiVersion: v1
+kind: Service
+
+metadata:
+  name: mysql
+  labels:
+    app: wordpress
+    tier: mysql
+
+spec:
+  type: ClusterIP
+  selector:
+    app: mysql  
+  ports:
+    - protocol: TCP
+      port: 3306
+      targetPort: 3306
+
+---
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: mysql-deployment
+  labels:
+    app: mysql
+
+spec:
+  selector:
+    matchLabels:
+      app: mysql
+      microservice: mysql
+  replicas: 1
+
+  template:
+    metadata: 
+      labels:
+        app: mysql
+        microservice: mysql
+        version: v1
+    spec:
+      containers:
+      - name: mysql
+        image: wlopezm/mysql:v1
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: asd123
+        - name: MYSQL_DATABASE
+          value: wordpress_db
+        - name: MYSQL_USER
+          value: wordpress_user
+        - name: MYSQL_PASSWORD
+          value: asdf1234
+        ports:
+        - containerPort: 3306
+        volumeMounts:
+        - name: mysql-persistent-storage
+          mountPath: /var/lib/mysql
+      volumes:
+        - name: mysql-persistent-storage
+          persistentVolumeClaim:
+            claimName: mysql-pvc
